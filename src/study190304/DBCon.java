@@ -1,13 +1,14 @@
-package study190303;
+package study190304;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBCon {
-	public static final String URL = "jdbc:oracle:thin:@localhost:1521:TestDB";
-	public static final String USER = "CHORONG";
-	public static final String PASSWORD = "12345";
+	public final static String URL = "jdbc:oracle:thin:@localhost:1521:TestDB";
+	public final static String USER = "CHORONG";
+	public final static String PASSWORD = "12345";
+
 	public static Connection con = null;
 
 	public static Connection getCon() {

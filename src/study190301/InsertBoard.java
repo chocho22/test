@@ -10,7 +10,7 @@ public class InsertBoard {
 
 		String url = "jdbc:oracle:thin:@localhost:1521:TestDB";
 		String id = "CHORONG";
-		String pwd = "DLTGLD23";
+		String pwd = "12345";
 
 		Connection con = null;
 

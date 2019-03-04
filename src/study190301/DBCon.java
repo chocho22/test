@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class DBCon {
 	private static final String URL = "jdbc:oracle:thin:@localhost:1521:TestDB";
 	private static final String USER = "CHORONG";
-	private static final String PASSWORD = "DLTGLD23";
+	private static final String PASSWORD = "12345";
 	private static Connection con;
 	DBCon() {
 	}
