@@ -26,12 +26,7 @@ public class Execute {
 					BoardService bs = new BoardService();
 					do {
 					if ("1".equals(cmd)) {
-						System.out.println("주문자명이나 품목명으로 검색해주세요.");
-						System.out.print("주문자명 : ");
-						String buyer = scan.nextLine();
-						System.out.print("품목명 : ");
-						String reqName = scan.nextLine();
-						System.out.println(bs.selectBoard(buyer,reqName));
+//						bs.selectBoard();
 					} else if ("2".equals(cmd)) {
 						System.out.println("주문건을 등록해주세요.");
 						System.out.print("주문자명 : ");

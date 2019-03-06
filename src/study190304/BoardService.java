@@ -8,7 +8,7 @@ import java.util.List;
 
 public class BoardService {
 
-	public List<OrderBoardVO> selectBoard(String buyer,String reqName) {
+	public List<OrderBoardVO> selectBoard(String buyer, String reqName) {
 		//package db.user.UserService 참고하기
 		//package db.user2.UserService 참고하기
 		String sql = "select * from order_board where 1=1";
