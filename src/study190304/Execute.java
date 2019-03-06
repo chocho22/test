@@ -1,6 +1,6 @@
 package study190304;
 
-import java.sql.Connection;
+import java.util.List;
 import java.util.Scanner;
 
 public class Execute {
@@ -15,7 +15,7 @@ public class Execute {
 			if ("CHORONG".equals(id)) {
 				System.out.print("PW : ");
 				String pw = scan.nextLine();
-				if ("DLTGLD23".equals(pw)) {
+				if ("12345".equals(pw)) {
 					System.out.println("CHORONG님 안녕하세요" + "\n원하시는 번호를 선택해주세요.");
 					System.out.println("1. 목록 조회");
 					System.out.println("2. 주문건 등록");
@@ -26,12 +26,30 @@ public class Execute {
 					BoardService bs = new BoardService();
 					do {
 					if ("1".equals(cmd)) {
-						System.out.println("주문자명이나 품목명으로 검색해주세요.");
-						System.out.print("주문자명 : ");
-						String buyer = scan.nextLine();
-						System.out.print("품목명 : ");
-						String reqName = scan.nextLine();
-						System.out.println(bs.selectBoard(buyer,reqName));
+						System.out.println("검색할 대상을 선택해주세요.");
+						System.out.println("1. 검색 안함");
+						System.out.println("2. 주문자명");
+						System.out.println("3. 품목명");
+						System.out.print("번호 : ");
+						List<OrderBoardVO> obList = null;
+						OrderBoardVO ob = new OrderBoardVO();
+						String cmd2 = scan.nextLine();
+						if("1".equals(cmd2)) {
+							obList = bs.selectBoard(ob);
+						} else {
+							System.out.println("검색할 내용을 입력해주세요.");
+							String searchStr = scan.nextLine();
+							if("2".equals(cmd2)) {
+								ob.setBuyer(cmd2);
+							} else if("3".equals(cmd2)) {
+								ob.setReqName(cmd2);
+							}
+							obList = bs.selectBoard(ob);
+						}
+						for(OrderBoardVO ob3 : obList) {
+							System.out.println(ob3);
+						}
+						// 이전으로 돌아가기??
 					} else if ("2".equals(cmd)) {
 						System.out.println("주문건을 등록해주세요.");
 						System.out.print("주문자명 : ");
