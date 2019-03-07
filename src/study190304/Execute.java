@@ -16,7 +16,8 @@ public class Execute {
 				System.out.print("PW : ");
 				String pw = scan.nextLine();
 				if ("DLTGLD23".equals(pw)) {
-					System.out.println("CHORONG님 안녕하세요" + "\n원하시는 번호를 선택해주세요.");
+					System.out.println("CHORONG님 안녕하세요" + 
+				"\n원하시는 번호를 선택해주세요.");
 					System.out.println("1. 목록 조회");
 					System.out.println("2. 주문건 등록");
 					System.out.println("3. 주문건 수정");
@@ -26,7 +27,7 @@ public class Execute {
 					BoardService bs = new BoardService();
 					do {
 					if ("1".equals(cmd)) {
-//						bs.selectBoard();
+						
 					} else if ("2".equals(cmd)) {
 						System.out.println("주문건을 등록해주세요.");
 						System.out.print("주문자명 : ");

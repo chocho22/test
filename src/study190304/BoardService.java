@@ -8,37 +8,37 @@ import java.util.List;
 
 public class BoardService {
 
-	public List<OrderBoardVO> selectBoard(String buyer, String reqName) {
+	public List<OrderBoardVO> selectBoard(OrderBoardVO ob) {
 		//package db.user.UserService 참고하기
 		//package db.user2.UserService 참고하기
 		String sql = "select * from order_board where 1=1";
-		if(!"\n".equals(buyer)) {
-			sql += " and buyer=?";
-		}
-		if(!"\n".equals(reqName)) {
-			sql += " and reqName=?";
-		}
+//		if(!"\n".equals(buyer)) {
+//			sql += " and buyer=?";
+//		}
+//		if(!"\n".equals(reqName)) {
+//			sql += " and reqName=?";
+//		}
 		try {
 			PreparedStatement ps = DBCon.getCon().prepareStatement(sql);
 			int i = 1;
-			if(!"\n".equals(buyer)) {
-				ps.setString(i++, buyer);
-			}
-			if(!"\n".equals(reqName)) {
-				ps.setString(i++, reqName);
-			}
+//			if(!"\n".equals(buyer)) {
+//				ps.setString(i++, buyer);
+//			}
+//			if(!"\n".equals(reqName)) {
+//				ps.setString(i++, reqName);
+//			}
 			ResultSet rs = ps.executeQuery();
 			List<OrderBoardVO> obList = new ArrayList<>();
 			while (rs.next()) {
-				OrderBoardVO ob = new OrderBoardVO();
-				ob.setOrderNum(rs.getInt("orderNum"));
-				ob.setBuyer(rs.getString("buyer"));
-				ob.setBuyAdr(rs.getString("buyAdr"));
-				ob.setReqName(rs.getString("reqName"));
-				ob.setReqCnt(rs.getInt("reqCnt"));
-				ob.setReqDat(rs.getString("reqDat"));
-				ob.setReqTim(rs.getString("reqTim"));
-				obList.add(ob);
+				OrderBoardVO ob2 = new OrderBoardVO();
+				ob2.setOrderNum(rs.getInt("orderNum"));
+				ob2.setBuyer(rs.getString("buyer"));
+				ob2.setBuyAdr(rs.getString("buyAdr"));
+				ob2.setReqName(rs.getString("reqName"));
+				ob2.setReqCnt(rs.getInt("reqCnt"));
+				ob2.setReqDat(rs.getString("reqDat"));
+				ob2.setReqTim(rs.getString("reqTim"));
+				obList.add(ob2);
 			}
 			return obList;
 		} catch (SQLException e) {
