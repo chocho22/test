@@ -18,7 +18,11 @@ public class FoodServiceImpl implements FoodService {
 		return fdao.selectFood(foodNum);
 	}
 	@Override
-	public int insertFood(FoodVO food) {
+	public int insertFood(FoodVO food) throws Exception{
+		List<FoodVO> tmpFoodList = fdao.selectFoodList(food);
+		if(tmpFoodList.size()!=0) {
+			throw new Exception("중복!!");
+		}
 		return fdao.insertFood(food);
 	}
 
@@ -34,10 +38,21 @@ public class FoodServiceImpl implements FoodService {
 	public static void main(String[] args) {
 		FoodService fs = new FoodServiceImpl();
 		List<FoodVO> foodList = fs.selectFoodList(null);
-		System.out.println(foodList);
+//		System.out.println(foodList);
+//		FoodVO food = new FoodVO();
+//		food.setFoodName("훠궈");
+//		foodList = fs.selectFoodList(food);
+//		System.out.println(foodList);
+		
 		FoodVO food = new FoodVO();
-		food.setFoodName("훠궈");
-		foodList = fs.selectFoodList(food);
-		System.out.println(foodList);
+		food.setFoodName("감바스");
+		food.setFoodPrice(40000);
+		int cnt = 0;
+		try {
+			cnt = fs.insertFood(food);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("저장 성공 : " + cnt);
 	}
 }
