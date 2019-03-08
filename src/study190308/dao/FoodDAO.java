@@ -5,7 +5,7 @@ import java.util.List;
 import study190308.vo.FoodVO;
 
 public interface FoodDAO {
-	public List<FoodVO> selectFoodList();
+	public List<FoodVO> selectFoodList(FoodVO food);
 	public FoodVO selectFood(Integer foodNum);
 	public int insertFood(FoodVO food);
 	public int updateFood(FoodVO food);

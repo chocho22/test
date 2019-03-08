@@ -35,7 +35,7 @@ public class FoodDAOImpl implements FoodDAO {
 	}
 
 	@Override
-	public List<FoodVO> selectFoodList() {
+	public List<FoodVO> selectFoodList(FoodVO sfood) {
 		String sql = "select food_num, food_name, food_price from food";
 		try {
 			PreparedStatement ps = DBCon.getCon().prepareStatement(sql);
@@ -116,8 +116,8 @@ public class FoodDAOImpl implements FoodDAO {
 		FoodVO food = fdao.selectFood(1);
 		System.out.println(food);
 		
-		List<FoodVO> foodList = fdao.selectFoodList();
-		System.out.println(foodList);
+//		List<FoodVO> foodList = fdao.selectFoodList(FoodVO sfood);
+//		System.out.println(foodList);
 		
 		FoodVO iFood = new FoodVO();
 		iFood.setFoodNum(5);
