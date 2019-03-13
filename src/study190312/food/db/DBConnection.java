@@ -5,36 +5,39 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnection {
+	private static final String URL = "jdbc:oracle:thin:@localhost:1521:TestDB";
+	private static final String USER = "CHORONG";
+	private static final String PASSWORD = "DLTGLD23";
+	private static final String CLASS_NAME = "oracle.jdbc.OracleDriver";
 
-	private static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-	private static final String USER = "osfu";
-	private static final String PASSWORD = "12345678";
-	private static final String DRIVER = "oracle.jdbc.OracleDriver";
-	private static Connection con = null;
-	
-	public static void open() {
+	private static Connection con;
+
+	private static boolean open() {
 		try {
-			Class.forName(DRIVER);
+			Class.forName(CLASS_NAME);
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			return true;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return false;
 	}
 	
 	public static Connection getCon() {
-		if (con==null) {
-			open();
+		if(con==null) {
+			if(open()) {
+				return con;
+			}
 		}
-		return con;
+		return null;
 	}
-	
 	
 	public static void close() {
 		if(con!=null) {
 			try {
-				if(!con.isClosed()) {
+				if(!con.isClosed() ) {
 					con.close();
 				}
 			} catch (SQLException e) {
