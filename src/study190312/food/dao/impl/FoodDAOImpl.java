@@ -6,8 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import study190308.db.DBCon;
 import study190312.food.dao.FoodDAO;
+import study190312.food.db.DBConnection;
 import study190312.food.vo.FoodVO;
 
 public class FoodDAOImpl implements FoodDAO {
@@ -21,7 +21,7 @@ public class FoodDAOImpl implements FoodDAO {
 			}
 		}
 		try {
-			PreparedStatement ps = DBCon.getCon().prepareStatement(sql);
+			PreparedStatement ps = DBConnection.getCon().prepareStatement(sql);
 				if (food.getFoodName() != null) {
 					ps.setString(1, food.getFoodName());
 				}
@@ -38,7 +38,7 @@ public class FoodDAOImpl implements FoodDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			DBCon.close();
+			DBConnection.close();
 		}
 		return null;
 	}
@@ -48,7 +48,7 @@ public class FoodDAOImpl implements FoodDAO {
 		String sql = "select food_num, food_name, food_price from food";
 		sql += " where food_num=?";
 		try {
-			PreparedStatement ps = DBCon.getCon().prepareStatement(sql);
+			PreparedStatement ps = DBConnection.getCon().prepareStatement(sql);
 			ps.setInt(1, foodNum);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
@@ -61,7 +61,7 @@ public class FoodDAOImpl implements FoodDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			DBCon.close();
+			DBConnection.close();
 		}
 		return null;
 	}
@@ -70,7 +70,7 @@ public class FoodDAOImpl implements FoodDAO {
 	public int updateFood(FoodVO food) {
 		String sql = "update food set food_name=?, food_price=? where food_num=?";
 		try {
-			PreparedStatement ps = DBCon.getCon().prepareStatement(sql);
+			PreparedStatement ps = DBConnection.getCon().prepareStatement(sql);
 			ps.setString(1, food.getFoodName());
 			ps.setInt(2, food.getFoodPrice());
 			ps.setInt(3, food.getFoodNum());
@@ -78,7 +78,7 @@ public class FoodDAOImpl implements FoodDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			DBCon.close();
+			DBConnection.close();
 		}
 		return 0;
 	}
@@ -87,13 +87,13 @@ public class FoodDAOImpl implements FoodDAO {
 	public int deleteFood(FoodVO food) {
 		String sql = "delete from food where food_num=?";
 		try {
-			PreparedStatement ps = DBCon.getCon().prepareStatement(sql);
+			PreparedStatement ps = DBConnection.getCon().prepareStatement(sql);
 			ps.setInt(1,food.getFoodNum());
 			return ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			DBCon.close();
+			DBConnection.close();
 		}
 		return 0;
 	}
@@ -103,14 +103,14 @@ public class FoodDAOImpl implements FoodDAO {
 		String sql = "insert into food(food_num,food_name,food_price) " +
 				" values((select nvl(max(food_num),0)+1 from food),?,?)";
 		try {
-			PreparedStatement ps = DBCon.getCon().prepareStatement(sql);
+			PreparedStatement ps = DBConnection.getCon().prepareStatement(sql);
 			ps.setString(1, food.getFoodName());
-			ps.setInt(2, food.getFoodNum());
+			ps.setInt(2, food.getFoodPrice());
 			return ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			DBCon.close();
+			DBConnection.close();
 		}
 		return 0;
 	}
