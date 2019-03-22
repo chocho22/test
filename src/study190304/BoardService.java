@@ -1,5 +1,6 @@
 package study190304;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,17 +10,33 @@ import java.util.List;
 public class BoardService {
 
 	public List<OrderBoardVO> selectBoard(OrderBoardVO ob) {
+<<<<<<< HEAD
 		//package db.user.UserService 참고하기
 		//package db.user2.UserService 참고하기
+=======
+		// package db.user.UserService 참고하기
+		// package db.user2.UserService 참고하기
+>>>>>>> refs/remotes/origin/Test1
 		String sql = "select * from order_board where 1=1";
+<<<<<<< HEAD
 //		if(!"\n".equals(buyer)) {
 //			sql += " and buyer=?";
 //		}
 //		if(!"\n".equals(reqName)) {
 //			sql += " and reqName=?";
 //		}
+=======
+		if (ob.getBuyer() != null) {
+			sql += " and buyer=?";
+		}
+		if (ob.getReqName() != null) {
+			sql += " and req_name=?";
+		}
+		Connection con = DBCon.getCon();
+>>>>>>> refs/remotes/origin/Test1
 		try {
 			PreparedStatement ps = DBCon.getCon().prepareStatement(sql);
+<<<<<<< HEAD
 			int i = 1;
 //			if(!"\n".equals(buyer)) {
 //				ps.setString(i++, buyer);
@@ -27,10 +44,26 @@ public class BoardService {
 //			if(!"\n".equals(reqName)) {
 //				ps.setString(i++, reqName);
 //			}
+=======
+			if (ob != null) {
+				if (ob.getBuyer() != null) {
+					ps.setString(1, ob.getBuyer());
+				}
+				if (ob.getReqName() != null) {
+					int i = 1;
+					if(ob.getBuyer()==null) {
+						ps.setString(i++, ob.getReqName());
+					} else {
+						ps.setString(i++, ob.getReqName());
+					}
+				}
+			}
+>>>>>>> refs/remotes/origin/Test1
 			ResultSet rs = ps.executeQuery();
 			List<OrderBoardVO> obList = new ArrayList<>();
 			while (rs.next()) {
 				OrderBoardVO ob2 = new OrderBoardVO();
+<<<<<<< HEAD
 				ob2.setOrderNum(rs.getInt("orderNum"));
 				ob2.setBuyer(rs.getString("buyer"));
 				ob2.setBuyAdr(rs.getString("buyAdr"));
@@ -38,21 +71,29 @@ public class BoardService {
 				ob2.setReqCnt(rs.getInt("reqCnt"));
 				ob2.setReqDat(rs.getString("reqDat"));
 				ob2.setReqTim(rs.getString("reqTim"));
+=======
+				ob2.setOrderNum(rs.getInt("order_num"));
+				ob2.setBuyer(rs.getString("buyer"));
+				ob2.setBuyAdr(rs.getString("buy_adr"));
+				ob2.setReqName(rs.getString("req_name"));
+				ob2.setReqCnt(rs.getInt("req_cnt"));
+				ob2.setReqDat(rs.getString("req_dat"));
+				ob2.setReqTim(rs.getString("req_tim"));
+>>>>>>> refs/remotes/origin/Test1
 				obList.add(ob2);
 			}
 			return obList;
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			DBCon.close();
 		}
 		return null;
 	}
 
-	public void insertBoard(String buyer, String buyAdr, String reqName,
-			 Integer reqCnt) {
-		String sql = "insert into order_board(buyer,buyAdr,reqName,reqCnt)" +
-			 " values(?,?,?,?)";
+	public void insertBoard(String buyer, String buyAdr, String reqName, Integer reqCnt) {
+		String sql = "insert into order_board(buyer,buy_adr,req_name,req_cnt)" + " values(?,?,?,?)";
+		Connection con = DBCon.getCon();
 		try {
 			PreparedStatement ps = DBCon.getCon().prepareStatement(sql);
 			ps.setString(1, buyer);
@@ -67,28 +108,28 @@ public class BoardService {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			DBCon.close();
 		}
 	}
 
-	public void updateBoard(String buyer, String buyAdr, String reqName,
-			String reqCnt1) {
+	public void updateBoard(String buyer, String buyAdr, String reqName, String reqCnt1) {
 		String sql = "update order_board set ";
 		if (!"\n".equals(buyAdr)) {
-			sql += " buyAdr =?";
+			sql += " buy_adr =?";
 		}
 		if (!"\n".equals(reqName)) {
-			sql += " , reqName =?";
+			sql += " , req_name =?";
 		}
 		if (!"\n".equals(reqCnt1)) {
-			sql += " , reqCnt=?";
+			sql += " , req_cnt=?";
 		}
 		sql += " where buyer=?";
+		Connection con = DBCon.getCon();
 		try {
 			PreparedStatement ps = DBCon.getCon().prepareStatement(sql);
 			int i = 1;
-			if  (!"\n".equals(buyAdr)) {
+			if (!"\n".equals(buyAdr)) {
 				ps.setString(i++, buyAdr);
 			}
 			if (!"\n".equals(reqName)) {
@@ -102,45 +143,45 @@ public class BoardService {
 			ps.setString(i, buyer);
 			int cnt = ps.executeUpdate();
 			if (cnt == 1) {
-				System.out.println(buyer + "님의 주문건이 정상적으로" +
-						"수정되었습니다.");
+				System.out.println(buyer + "님의 주문건이 정상적으로" + "수정되었습니다.");
 			} else if (cnt == 0) {
-				System.out.println(buyer + "님의 주문건이 오류로 수정되지" +
-						"않았습니다.");
+				System.out.println(buyer + "님의 주문건이 오류로 수정되지" + "않았습니다.");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			DBCon.close();
 		}
 	}
 
 	public void deleteBoard(String buyer, String reqName) {
 		String sql = "delete from order_board where 1=1";
-		if(!"\n".equals(buyer)) {
+		if (!"\n".equals(buyer)) {
 			sql += " and buyer=?";
 		}
-		if(!"\n".equals(reqName)) {
-			sql += " and reqName=?";
+		if (!"\n".equals(reqName)) {
+			sql += " and req_name=?";
 		}
+		Connection con = DBCon.getCon();
 		try {
 			PreparedStatement ps = DBCon.getCon().prepareStatement(sql);
 			int i = 1;
-			if(!"\n".equals(buyer)) {
+			if (!"\n".equals(buyer)) {
 				ps.setString(i++, buyer);
 			}
-			if(!"\n".equals(reqName)) {
+			if (!"\n".equals(reqName)) {
 				ps.setString(i++, reqName);
 			}
 			int cnt = ps.executeUpdate();
-			if(cnt==1) {
+			if (cnt == 1) {
 				System.out.println("주문건이 정상적으로 삭제되었습니다.");
-			} if(cnt==0) {
+			}
+			if (cnt == 0) {
 				System.out.println("이미 삭제된 주문건입니다.");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			DBCon.close();
 		}
 	}
